@@ -50,7 +50,7 @@
                         <ul class="dropdown-menu">
                             <!--Interando categorias, para o menu principal-->
                             @foreach($categories as $cat)
-                                <li class="profile-li"><a class="profile-links" href="{{$cat['CategoryCode']}}">{{$cat['CategoryName']}}</a></li>                            
+                                <li class="profile-li"><a class="profile-links" href="{{$cat['CategoryID']}}">{{$cat['CategoryName']}}</a></li>                            
                             @endforeach
                         </ul>
                         </li>
@@ -73,7 +73,7 @@
                         <ul class="dropdown-menu">
                             <!--Interando categorias, para o menu menor-->
                             @foreach($categories as $cat)
-                                <li class="profile-li"><a class="profile-links" href="{{$cat['CategoryCode']}}">{{$cat['CategoryName']}}</a></li>                            
+                                <li class="profile-li"><a class="profile-links" href="{{$cat['CategoryID']}}">{{$cat['CategoryName']}}</a></li>                            
                             @endforeach                            
                         </ul>
                 </div>                

@@ -16,4 +16,10 @@ class CategoryController extends Controller
     function getCategories(){        
         return $this->category->all();//->orderBy('CategoryName');
     }
+    
+    function getCategory($id){
+        return  $this->category->where("CategoryID",$id)->first();
+    }
+    
+    
 }
