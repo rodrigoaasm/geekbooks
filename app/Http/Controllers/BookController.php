@@ -20,8 +20,7 @@ class BookController extends Controller
     }
     
     
-    public function byCategory($catID = null){        
-        
+    public function byCategory($catID = null){       
         $categories = $this->categoryCtr->getCategories();//recuperando categorias
         
         
@@ -33,5 +32,16 @@ class BookController extends Controller
         }
         
         return view("books_view/books_view",compact("categories","books","catID"));
+    }
+    
+    
+    public function bySearch(Request $request){        
+        $post = $request->except('_token');//Recuperando informações passadas via post
+        $categories = $this->categoryCtr->getCategories();//recuperando categorias
+        
+        $keyWord = $post['search_books'];
+        $books = $this->book->where('title','LIKE','%'.$keyWord.'%')->get();
+
+        return view("books_view/books_view",compact("categories","books","keyWord"));
     }
 }

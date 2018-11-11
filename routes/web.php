@@ -12,3 +12,4 @@
 */
 
 Route::get('/{cc?}', "BookController@byCategory");
+Route::post('/search', 'BookController@bySearch');
