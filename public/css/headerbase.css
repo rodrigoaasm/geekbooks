@@ -1,3 +1,5 @@
+
+/*nava bar*/
 .flipkart-navbar {
     background-color: #2874f0;
     color: #FFFFFF;    
@@ -209,14 +211,27 @@
     color: #fff;
 }
 
-
 .container-body{
-    padding-top: 100px;
+    padding-top: 130px;
+}
+
+.row-nav{
+    padding-bottom: 20px;
 }
 
 
+/*Books view*/
 @media screen and (min-width: 768px) {
     .cell{
         height:400px;
     }
+    
+    .container-body{
+        padding-top: 100px;
+    }
+}
+
+/*Book Show*/
+.description{
+    font-size: 18px;
 }

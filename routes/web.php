@@ -10,6 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/show/{ISBN}/{last}/{info?}', "BookController@show");
+Route::post('/search', 'BookController@bySearch');
 
 Route::get('/{cc?}', "BookController@byCategory");
-Route::post('/search', 'BookController@bySearch');

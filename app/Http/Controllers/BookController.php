@@ -34,7 +34,7 @@ class BookController extends Controller
            $getBooks = $this->book->all();
            $title_body ="";
         }else{//buscando livros por categoria
-            $category = $this->categoryCtr->getCategory($catID); //Recuperando categoria selecionada;            
+            $category = $this->categoryCtr->getCategory($catID); //Recuperando categoria que foi selecionada;            
             $getBooks = $category->books($catID);//Recuperando os livros por categoria  
             $title_body = "Category > ".$category['CategoryName'];
         }  
@@ -45,7 +45,7 @@ class BookController extends Controller
             $books[] = $book;
         }
 
-        return view("books_view/books_view",compact("categories","books","title_body"));
+        return view("books_view/books_view",compact("categories","books","title_body","catID"));
     }
     
     
@@ -63,5 +63,25 @@ class BookController extends Controller
         $title_body = "Search > '".$keyWord."'";
    
         return view("books_view/books_view",compact("categories","books","keyWord","title_body"));
+    }
+    
+    public function show($isbn,$lastAction,$info = null){
+        $categories = $this->categoryCtr->getCategories();//recuperando categorias
+              
+        //Preparando links para navegação de volta
+        if($lastAction == "categories"){
+            $category = $this->categoryCtr->getCategory($info); //Recuperando categoria que foi selecionada na pagina anterior           
+            $title_body = "Category > ".$category['CategoryName'];//carregando dados necessarios
+            $route_link = '/'.$info;
+        }else if($lastAction == "search"){//Passando os dados caso haja pesquisa
+            $title_body = "Search > ".$info;
+            $route_link = '/search/'.$info;
+        }
+        
+        $book = $this->book->where('ISBN',$isbn)->first();
+        
+        $book["description"] = htmlspecialchars($book["description"]);
+
+        return view("books_view/book_show",compact("book","categories","title_body","route_link"));
     }
 }
