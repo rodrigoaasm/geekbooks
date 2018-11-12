@@ -235,3 +235,16 @@
 .description{
     font-size: 18px;
 }
+
+
+.cart_qty{
+    width: 5em;
+    text-align: center;
+    border-style: groove;
+    border-width: 1px;
+}
+
+.div-cart{
+    padding-left: 15em;
+    padding-right: 15em;
+}
