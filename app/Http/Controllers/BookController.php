@@ -32,7 +32,7 @@ class BookController extends Controller
                    
         if($catID == null){//Se não tiver nenhuma categoria selecionada coloca todas na tela
            $getBooks = $this->book->all();
-           $title_body ="Home";
+           $title_body ="";
         }else{//buscando livros por categoria
             $category = $this->categoryCtr->getCategory($catID); //Recuperando categoria selecionada;            
             $getBooks = $category->books($catID);//Recuperando os livros por categoria  
@@ -44,8 +44,6 @@ class BookController extends Controller
             $book['description'] = $this::str_resume($book['description'],120); 
             $books[] = $book;
         }
-        
-        
 
         return view("books_view/books_view",compact("categories","books","title_body"));
     }

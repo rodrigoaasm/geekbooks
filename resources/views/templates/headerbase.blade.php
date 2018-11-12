@@ -13,8 +13,8 @@
         <script src="{{url('js/headerbase.js')}}"></script>
 
     </head>    
-    <body> 
-        <div id="flipkart-navbar">
+    <body>     
+        <div id="flipkart-navbar" class="flipkart-navbar navbar-fixed-top">
             <div class="container-fluid">
                 <div class="container">
                 <div class="row row1">
@@ -85,5 +85,5 @@
             </div>
         
         </div>
-
+ 
 
