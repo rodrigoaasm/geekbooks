@@ -17,9 +17,9 @@
                 <tbody>
                     <tr>
                         <td class="col-sm-4" rowspan="5">
-                            <img  class="img-thumbnail" src="{{'http://yorktown.cbe.wwu.edu/sandvig/mis314/assignments/bookstore/bookimages/'.$book["ISBN"].'.01.MZZZZZZZ.jpg'}}" alt="{{$book["title"]}}">              
+                            <img  onclick="expandImg();" class="img-thumbnail" src="{{'http://yorktown.cbe.wwu.edu/sandvig/mis314/assignments/bookstore/bookimages/'.$book["ISBN"].'.01.MZZZZZZZ.jpg'}}" alt="{{$book["title"]}}">              
                         </td>   
-                        <td class="col-sm-5 text-right" >
+                        <td class="col-sm-5 text-right">
                             <span class="h3">Price:</span>
                         </td>
                         <td class=" col-sm-3 text-center">
@@ -29,7 +29,7 @@
                         <th class="col-sm-5 text-right" >
                             <span class="h5">ISBN:</span>
                         </th>
-                        <td class="col-sm-3 text-center">{{$book["ISBN"]}}</td>
+                        <td class="col-sm-3 text-center" id="isbn_book">{{$book["ISBN"]}}</td>
                     </tr>
                     <tr>
                         <th class="col-sm-5 text-right" >
@@ -78,12 +78,11 @@
                     <tr>
                         <td colspan="3">
                             <div class="caption">
-                            <h3>{{$book["title"]}}</h3>
+                            <h3 id="title_book">{{$book["title"]}}</h3>
                             <h5>by Rodrigo Maia</h5>
                             </div>
                         </td>                    
-                    </tr>
-                </div>
+                    </tr>                
                 </thead>
             </table>    
             <div class="col-sm-2"></div>    
