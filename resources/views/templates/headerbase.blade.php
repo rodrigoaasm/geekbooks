@@ -8,9 +8,11 @@
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
         <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"> </script>
         
         <link href="{{url('css/headerbase.css')}}" rel="stylesheet" >
         <script src="{{url('js/headerbase.js')}}"></script>
+        
 
     </head>    
     <body>     
@@ -19,7 +21,7 @@
                 <div class="container">
                 <div class="row row1">
                     <div class="col-sm-4 col-md-3 col">
-                        <h2 style="margin:0px;"><span class="smallnav menu" onclick="openNav()">☰ GeekBooks</span></h2>
+                        <h2 style="margin:0px;" id="title_page"><span class="smallnav menu" >☰ GeekBooks</span></h2>
                         <h1 style="margin:0px;"><span class="largenav">GeekBooks</span></h1>
                     </div>
                     <div class="flipkart-navbar-search text-primary smallsearch col-sm-6 col-md-7 col-xs-11">
@@ -66,7 +68,7 @@
             <div id="mySidenav" class="sidenav">
                 <div class="container" style="background-color: #2874f0; padding-top: 10px;">
                     <span class="sidenav-heading">GeekBooks</span>
-                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+                    <a href="javascript:void(0)" class="closebtn" id="closeMySideNav">×</a>
                 </div>   
                 <a class="links" href="#">
                     <svg class="cart-svg " width="16 " height="16 " viewBox="0 0 16 16 ">

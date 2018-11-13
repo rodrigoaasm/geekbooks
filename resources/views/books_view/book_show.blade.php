@@ -17,7 +17,7 @@
                 <tbody>
                     <tr>
                         <td class="col-sm-4" rowspan="5">
-                            <img  onclick="expandImg();" class="img-thumbnail" src="{{'http://yorktown.cbe.wwu.edu/sandvig/mis314/assignments/bookstore/bookimages/'.$book["ISBN"].'.01.MZZZZZZZ.jpg'}}" alt="{{$book["title"]}}">              
+                            <img id="img_book" class="img-thumbnail" src="{{'http://yorktown.cbe.wwu.edu/sandvig/mis314/assignments/bookstore/bookimages/'.$book["ISBN"].'.01.MZZZZZZZ.jpg'}}" alt="{{$book["title"]}}">              
                         </td>   
                         <td class="col-sm-5 text-right">
                             <span class="h3">Price:</span>
@@ -87,5 +87,6 @@
             </table>    
             <div class="col-sm-2"></div>    
         </div>
+        <script src="{{url('js/book_show.js')}}"></script>
     </body>
 </html>
