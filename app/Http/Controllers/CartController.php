@@ -14,7 +14,7 @@ class CartController extends Controller {
 
     public function show() {
         $categories = $this->categoryCtr->getCategories();
-        $title_body ="cart";
+        $title_body ="Cart";
         return view("cart_view/cart_view",compact("categories", "title_body"));
     }
 
