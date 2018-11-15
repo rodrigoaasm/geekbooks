@@ -39,7 +39,8 @@
                             @foreach ($bookArray as $key => $item)
                                 
                                 <tr>
-                                    <th><a href="{{url('show').'/'.$item['ISBN']}}{{'/home'}}">{{$item['name']}}</a></th>
+                                    <th><img class=" imgs img-thumbnail" src="{{'http://yorktown.cbe.wwu.edu/sandvig/mis314/assignments/bookstore/bookimages/'.$item["ISBN"].'.01.MZZZZZZZ.jpg'}}" alt="{{$item["name"]}}"
+                                        <br> <a href="{{url('show').'/'.$item['ISBN']}}{{'/home'}}">{{$item['name']}}</a></th>
                                     <td>{{'$'.$item['price']}}</td>
                                     <td><form action="attCar" method="post">
                                         <input type="text" class="cart_qty"
