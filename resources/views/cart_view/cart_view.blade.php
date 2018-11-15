@@ -87,6 +87,8 @@
             </div>
         </div>
     </div>
+       <script src="{{url('js/cart_view.js')}}"></script>
     @endif
 </body>
-</html>
+
+@include('../templates/footerBase')

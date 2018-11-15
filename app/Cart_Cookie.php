@@ -22,10 +22,10 @@ class Cart_Cookie extends Model {
             }else{
                 $bookArray[$isbn] = 1;
             }
-            setcookie($this->cookie_name, serialize($bookArray), time() + $this->time, '/geekbooks/public/cart/');
+            setcookie($this->cookie_name, serialize($bookArray), time() + $this->time, '/');
         }else {
             $bookArray[$isbn] = 1;
-            setcookie($this->cookie_name, serialize($bookArray), time() + $this->time, '/geekbooks/public/cart/');
+            setcookie($this->cookie_name, serialize($bookArray), time() + $this->time, '/');
         }
         return $bookArray;
     }
@@ -53,7 +53,7 @@ class Cart_Cookie extends Model {
         foreach ($bookArray as $isbn => $qty) :
             if($isbn == $book){
                 unset($bookArray[$isbn]);
-                setcookie($this->cookie_name, serialize($bookArray), time() + $this->time, '/geekbooks/public/cart/');
+                setcookie($this->cookie_name, serialize($bookArray), time() + $this->time, '/');
             }
         endforeach;
         return $bookArray;

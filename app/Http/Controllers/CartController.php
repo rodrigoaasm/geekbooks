@@ -31,7 +31,7 @@ class CartController extends Controller {
             if ($isbn != null) {
                 $bookArray = $this->cartCookie->add_cart($isbn);
             } else {
-                setcookie('cart', serialize($bookArray), time() + 64000 * 10, '/geekbooks/public/cart/');
+                setcookie('cart', serialize($bookArray), time() + 64000 * 10, '/');
             }
         }
         else{
