@@ -21,8 +21,8 @@
                 <div class="container">
                 <div class="row row1">
                     <div class="col-sm-4 col-md-3 col">
-                        <h2 style="margin:0px;" id="title_page"><span class="smallnav menu" >☰ GeekBooks</span></h2>
-                        <h1 style="margin:0px;"><span class="largenav">GeekBooks</span></h1>
+                        <h3 style="margin:0px;" id="title_page"><span class="smallnav menu" >☰ GeekBooks</span></h3>
+                        <h2 style="margin:0px;"><span class="largenav">GeekBooks</span></h2>
                     </div>
                     <div class="flipkart-navbar-search text-primary smallsearch col-sm-6 col-md-7 col-xs-11">
                         <div class="row">
@@ -62,8 +62,10 @@
                         </li>
                         <li class="upper-links"><a class="links" href="#">Order History</a>                        
                     </ul>
-                </div>
+                </div>                
             </div>   
+            @include('../templates/components/navagation')
+           
             
             <div id="mySidenav" class="sidenav">
                 <div class="container" style="background-color: #2874f0; padding-top: 10px;">

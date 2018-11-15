@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\HistoryController;
 use App\Book;
 use App\Cart_Cookie;
 
@@ -10,20 +11,21 @@ class CartController extends Controller {
 
     //Declaração de Variavéis
     private $categoryCtr;
+    private $historicalCtr;
     private $bookCtr;
     private $cartCookie;
 
     //Metodo construtor
     function __construct(BookController $BookCtr, Cart_Cookie $Cart) {
         $this->categoryCtr = new CategoryController(); //Instancia Controlador de categorias
+        $this->historicalCtr = new HistoryController();
         $this->bookCtr = $BookCtr;
         $this->cartCookie = $Cart;
     }
 
     //Metodo show, mostra o carrinho, bem com seus valores
     public function show($isbn = null) {
-        $categories = $this->categoryCtr->getCategories();
-        $title_body = "Cart";
+        $categories = $this->categoryCtr->getCategories();        
         $bookArray = Array();
         //Caso tenha recebido um valor o adicionara ao carrinho
 
@@ -49,8 +51,13 @@ class CartController extends Controller {
         $subTotal = $this->total($bookArray);
         $frete = $this->frete($qty);
         $totalCart = $frete + $subTotal;
+        
+        $this->historicalCtr->addHistoricalAccessElement(\App\HistoricalAccessElement::PAGE_CART,
+                    '/cart/show'.$isbn,"You Cart");        
+        $histAcess = $this->historicalCtr->getHistoricalAcess();
+        
         //Retorna a view do cart
-        return view("cart_view/cart_view", compact("categories", "bookArray","qty","subTotal", "frete", "totalCart", "title_body"));
+        return view("cart_view/cart_view", compact("categories", "bookArray","qty","subTotal", "frete", "totalCart", "histAcess"));
     }
 
     public function attCart(Request $request) {

@@ -1,13 +1,7 @@
 @include('../templates/headerbase')
 
 <div class='container container-body'>
-
-    <div class="row row-nav">
-        <div class="col-sm-12 col-md-12">
-            <span class="h2"><a href="{{url('/')}}"><small>Home > </small></a><small>{{$title_body}}</small></span>
-        </div>
-    </div>
-
+    
     <h1>Your Cart</h1>
     
     @if (empty($bookArray))

@@ -1,16 +1,6 @@
 @include('../templates/headerbase')
 
         <div class='container container-body'>
-            <div class="row row-nav">
-                <div class="col-sm-12 col-md-12"> <!--Construido aba de navegação-->
-                    <span class="h2"><a href="{{url('/')}}"><small>Home > </small></a>
-                    @if(isset($route_link))<!-- Caso o usuário tenha vindo da home não existe nenhum link a ser lido-->
-                    <a href="{{url($route_link)}}"><small>{{$title_body.' > '}}</small></a>
-                    @endif
-                    <small>Book</small>
-                    </span>
-                </div>
-            </div>
             
             <div class="col-sm-2"></div>                                    
             <table class="col col-sm-8 thumbnail">

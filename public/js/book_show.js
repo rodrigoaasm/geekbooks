@@ -20,7 +20,7 @@ function expandImg(){
      titleNav.classList.add('h5');     
      
      var colNav1 = document.createElement('td');//Gerando celula da tabela 
-     colNav1.classList.add('col-sm-10');
+     colNav1.classList.add('col-sm-8');
      colNav1.appendChild(titleNav);//Inserido titulo na celula
 
      var elemtBack = document.createElement('button');//Gerando botão de saída
@@ -31,7 +31,7 @@ function expandImg(){
      elemtBack.addEventListener('click', minimizeImg); // Carregando listenner de volta
      
      var colNav2 = document.createElement('td'); //Gerando segunda celula da tabela    
-     colNav2.classList.add('col-sm-2'); 
+     colNav2.classList.add('col-sm-4'); 
      colNav2.classList.add('text-right');
      colNav2.appendChild(elemtBack);//Inserido botão a celula
  
@@ -40,7 +40,7 @@ function expandImg(){
      $('#flipkart-navbar').append(tableNav);//Inserido tabela no nav 
              
      var elemtImg = document.createElement('img');//Gerando imagem 
-     elemtImg.style="padding-top: 10em;";      
+     elemtImg.style="padding-top:5em;";      
      elemtImg.src = 'http://yorktown.cbe.wwu.edu/sandvig/mis314/assignments/bookstore/bookimages/'+$("#isbn_book").html()+'.01.LZZZZZZZ.jpg'
      elemtImg.alt = $('#title_book').html();
      elemtImg.classList.add('img-responsive'); 
