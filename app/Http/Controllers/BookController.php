@@ -84,4 +84,19 @@ class BookController extends Controller
 
         return view("books_view/book_show",compact("book","categories","title_body","route_link"));
     }
+    
+    public function returnBooks($bookArray){
+        foreach($bookArray as $key => $value):
+            $book = $this->book->where('ISBN',$key)->first();
+            $item = array(
+               'ISBN' => $book['ISBN'],
+                'name' => $book['title'],
+                'quantity'=>$value,
+                'price'=>$book['price'],
+                'total'=>$value*$book['price']
+            );
+            $bookArray[$key] = $item;
+        endforeach;
+        return $bookArray;
+    }
 }

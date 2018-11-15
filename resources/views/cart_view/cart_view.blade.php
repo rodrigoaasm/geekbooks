@@ -9,15 +9,19 @@
     </div>
 
     <h1>Your Cart</h1>
-    <?php
-    if (empty($_SESSION['cart']) ||
-            count($_SESSION['cart']) == 0) :
-        ?>
+    
+    @if (empty($bookArray))
+    
         <p>There are no items in your cart.</p>
-    <?php else: ?>
-
+    @else
+       <!--$bookArray = $CartController->books();
+              $subTotal = $CartController->total($bookArray);
+              $frete = $CartController->frete();
+              $totalCart = ($CartController->total($bookArray)+$CartController->frete());   
+                -->
+        <p>There are {{$qty}} itens on your cart!</p>
         <div class="row">
-            <div class ="col-sm-12 col-md-12 col-lg-10">
+            <div class ="col-sm-12 col-md-12 col-lg-12">
                 <form action="." method="post">
                     <input type="hidden" name="action" value="update">
                     <table class="table">
@@ -31,45 +35,45 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php
-                            foreach ($_SESSION['cart'] as $key => $item) :
-                                $price = number_format($item['price'], 2);
-                                $total = number_format($item['total'], 2);
-                                ?>
+                            
+                            @foreach ($bookArray as $key => $item)
+                                
                                 <tr>
-                                    <th><a href="{{url('show').'/'.$item['ISBN']}}{{'/home'}}"><?php echo $item['name']; ?></a></th>
-                                    <td>$<?php echo $price; ?></td>
-                                    <td><input type="text" class="cart_qty"
-                                               name="newqty[<?php echo $key; ?>]"
-                                               value="<?php echo $item['quantity']; ?>">
+                                    <th><a href="{{url('show').'/'.$item['ISBN']}}{{'/home'}}">{{$item['name']}}</a></th>
+                                    <td>{{'$'.$item['price']}}</td>
+                                    <td><form action="attCar" method="post">
+                                        <input type="text" class="cart_qty"
+                                               name="newqty[{{$item['ISBN']}}]"
+                                               value="{{$item['quantity']}}">
+                                        </form>
                                     </td>
-                                    <td>$<?php echo $total; ?></td>
+                                    <td>{{'$'.$item['total']}}</td>
                                     <td>
-                                        <form action="." method="post">
+                                        <form action="{{url('/cart/attCart')}}" method="post">
+                                            <input type="hidden" name="_token" value="{{csrf_token()}}">
                                             <input type="hidden" name="action"
-                                                   value="delete_product">
-                                            <input type="hidden" name="product_id"
-                                                   value="">
-
-                                            <input type="submit" value="Delete" class="btn btn-primary btn-sm">
+                                                   value="delete">
+                                            <input type="hidden" name="ISBN"
+                                                   value="{{$item['ISBN']}}">
+                                            <input type="submit" value="Remove" class="btn btn-primary btn-sm">
                                         </form>
                                     </td>
                                 </tr>
-                            <?php endforeach; ?>
+                            @endforeach
                         </tbody>
                         <tfoot>
                             <tr id="cart_footer">
                                 <td colspan="3"><b>Subtotal</b></td>
-                                <td><?php echo '$'.$subTotal;?></td>
+                                <td>{{'$'.$subTotal}}</td>
                                 <td></td>
                             <tr id="cart_frete">
                                 <td colspan="3"><b>Frete</b></td>
-                                <td><?php echo '$'.$frete;?></td>
+                                <td>{{'$'.$frete}}</td>
                                 <td></td>
                             </tr>
                             <tr id="cart_total">
                                 <td colspan="3"><b>Total</b></td>
-                                <td><?php echo '$'.$totalCart;?></td>
+                                <td>{{'$'.$totalCart}}</td>
                                 <td></td>
                             </tr>
                         </tfoot>
@@ -82,6 +86,6 @@
             </div>
         </div>
     </div>
-<?php endif; ?>
+    @endif
 </body>
 </html>
