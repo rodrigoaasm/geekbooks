@@ -53,7 +53,7 @@ class CartController extends Controller {
         $totalCart = $frete + $subTotal;
         
         $this->historicalCtr->addHistoricalAccessElement(\App\HistoricalAccessElement::PAGE_CART,
-                    '/cart/show'.$isbn,"You Cart");        
+                    '/cart/show',"You Cart");        
         $histAcess = $this->historicalCtr->getHistoricalAcess();
         
         //Retorna a view do cart
@@ -77,8 +77,10 @@ class CartController extends Controller {
         $subTotal = $this->total($bookArray);
         $frete = $this->frete($qty);
         $totalCart = $frete + $subTotal;
+        $this->historicalCtr->addHistoricalAccessElement(\App\HistoricalAccessElement::PAGE_CART,
+                    '/cart/show',"You Cart"); 
         //Retorna a view do cart
-        return view("cart_view/cart_view", compact("categories", "bookArray","qty","subTotal", "frete", "totalCart", "title_body"));
+        return view("cart_view/cart_view", compact("categories", "bookArray","qty","subTotal", "frete", "totalCart","histAcess", "title_body"));
     }
 
     public function total($bookArray) {
