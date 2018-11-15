@@ -41,7 +41,7 @@ class BookController extends Controller
            $this->historicalCtr->clearHistoricalAccessElement();
         }else{//buscando livros por categoria
             $category = $this->categoryCtr->getCategory($catID); //Recuperando categoria que foi selecionada;            
-            $getBooks = $category->books($catID);//Recuperando os livros por categoria  
+            $getBooks = $category->books;//Recuperando os livros por categoria  
             $this->historicalCtr->addHistoricalAccessElement(\App\HistoricalAccessElement::PAGE_CATEGORY,
                     '/'.$catID, "Category '".$category['CategoryName']."'");
         }  
@@ -81,15 +81,14 @@ class BookController extends Controller
     
     public function show($isbn){
         $categories = $this->categoryCtr->getCategories();//recuperando categorias
-        
-        
-        $book = $this->book->where('ISBN',$isbn)->first();       
-        
+
+        $book = $this->book->where('ISBN',$isbn)->first();         
+
         $this->historicalCtr->addHistoricalAccessElement(\App\HistoricalAccessElement::PAGE_BOOK,
                     '/show/'.$isbn,$this::str_resume($book["title"],22));        
         $histAcess = $this->historicalCtr->getHistoricalAcess();
         
-        return view("books_view/book_show",compact("book","categories","histAcess"));
+        return view("books_view/book_show",compact("book","authors","categories","histAcess"));
     }
     
     public function returnBooks($bookArray){

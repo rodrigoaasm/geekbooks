@@ -69,7 +69,12 @@
                         <td colspan="3">
                             <div class="caption">
                             <h3 id="title_book">{{$book["title"]}}</h3>
-                            <h5>by Rodrigo Maia</h5>
+                            <h5>
+                            by
+                            @foreach($book->authors as $author)
+                            <a href="{{url('/search/'.$author['nameL'])}}">{{$author["nameF"]." "}}{{$author["nameL"]}}</a>
+                            @endforeach
+                            </h5>
                             </div>
                         </td>                    
                     </tr>                
