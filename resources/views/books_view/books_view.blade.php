@@ -21,4 +21,4 @@
         </div>
 
     </body>
-</html>
+@include('../templates/footerBase')
