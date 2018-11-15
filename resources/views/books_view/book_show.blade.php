@@ -79,4 +79,4 @@
         </div>
         <script src="{{url('js/book_show.js')}}"></script>
     </body>
-</html>
+@include('../templates/footerBase')
