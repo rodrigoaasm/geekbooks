@@ -17,9 +17,7 @@ class Book extends Model
     protected $primaryKey = 'ISBN';
     public $incrementing = false;    
 
-
     public function authors(){            
         return $this->belongsToMany(Author::class,'bookauthorsbooks','ISBN', 'AuthorID');
- 
     }
 }

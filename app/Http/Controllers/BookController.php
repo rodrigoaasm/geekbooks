@@ -37,7 +37,7 @@ class BookController extends Controller
         $categories = $this->categoryCtr->getCategories();//recuperando categorias
                 
         if($catID == null){//Se não tiver nenhuma categoria selecionada coloca todas na tela
-           $getBooks = $this->book->all();
+           $getBooks = $this->book->inRandomOrder()->limit(4)->get();
            $this->historicalCtr->clearHistoricalAccessElement();
         }else{//buscando livros por categoria
             $category = $this->categoryCtr->getCategory($catID); //Recuperando categoria que foi selecionada;            
@@ -60,7 +60,14 @@ class BookController extends Controller
     public function bySearch($keyWord){      
         $categories = $this->categoryCtr->getCategories();//recuperando categorias
 
-        $books = $this->book->where('title','LIKE','%'.$keyWord.'%')->get();                
+        $books = $this->book
+                ->join('bookauthorsbooks', 'bookdescriptions.ISBN', '=', 'bookauthorsbooks.ISBN')
+                ->join('bookauthors', 'bookauthorsbooks.AuthorID', '=', 'bookauthors.AuthorID')
+                ->where('title','LIKE','%'.$keyWord.'%')
+                ->orWhere('description','LIKE','%'.$keyWord.'%')
+                ->orWhere('publisher','LIKE','%'.$keyWord.'%')
+                ->orWhere('nameF','LIKE','%'.$keyWord.'%')
+                ->orWhere('nameL','LIKE','%'.$keyWord.'%')->get();              
                 
         foreach($books as $book){//Resumindo descrições
             $book['description'] = $this::str_resume($book['description'],120);
