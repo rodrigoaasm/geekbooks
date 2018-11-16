@@ -11,9 +11,13 @@
 |
 */
 
-Route::get('/cart/{ISBN?}', "CartController@show");
+Route::get('/cart/show/{ISBN?}', "CartController@show");
+Route::post('/cart/attCart', "CartController@attCart");
 
-Route::get('/show/{ISBN}/{last}/{info?}', "BookController@show");
-Route::post('/search', 'BookController@bySearch');
+
+Route::get('/show/{ISBN}', "BookController@show");
+Route::get('/search/{keyword}', 'BookController@bySearch');
+Route::post('/search', 'BookController@bySearchPOST');
+
 
 Route::get('/{cc?}', "BookController@byCategory");

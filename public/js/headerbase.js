@@ -5,7 +5,7 @@ $(document).ready(function(){
 });        
 
 function openNav(){//Abrir sideNav        
-    $("#mySidenav").width('70%');        
+    $("#mySidenav").width('80%');        
 }
 
 function closeNav(){//Fechar sidebar

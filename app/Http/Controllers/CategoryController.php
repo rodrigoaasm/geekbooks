@@ -18,7 +18,7 @@ class CategoryController extends Controller
         
         $objCats =  DB::select('select DISTINCT `bookcategories`.* from `bookcategories`'
                 . ' RIGHT JOIN `bookcategoriesbooks` on `bookcategories`.`CategoryID` = '
-                . '`bookcategoriesbooks`.`CategoryID`;');
+                . '`bookcategoriesbooks`.`CategoryID` order by `bookcategories`.`CategoryName` ASC;');
         
         $cats = array();//Instaciando array        
         foreach($objCats as $objCat){

@@ -3,44 +3,128 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\HistoryController;
 use App\Book;
 use App\Cart_Cookie;
 
-
 class CartController extends Controller {
 
+    //Declaração de Variavéis
     private $categoryCtr;
-    private $book;
+    private $historicalCtr;
+    private $bookCtr;
     private $cartCookie;
-    // Start session management with a persistent cookie
-    private $lifetime = 60 * 5;    // 5 minutos;
 
-    function __construct(Book $book) {
-        $this->book = $book;
+    //Metodo construtor
+    function __construct(BookController $BookCtr, Cart_Cookie $Cart) {
         $this->categoryCtr = new CategoryController(); //Instancia Controlador de categorias
-        $this->cartCookie = new Cart_Cookie(); 
-        session_set_cookie_params($this->lifetime, '/');
-        session_start();
-
-        // Create a cart array if needed
-        if (empty($_SESSION['cart'])) {
-            $_SESSION['cart'] = array();
-        }
+        $this->historicalCtr = new HistoryController();
+        $this->bookCtr = $BookCtr;
+        $this->cartCookie = $Cart;
     }
 
+    //Metodo show, mostra o carrinho, bem com seus valores
     public function show($isbn = null) {
+        $categories = $this->categoryCtr->getCategories();        
+        $bookArray = Array();
+        //Caso tenha recebido um valor o adicionara ao carrinho
+
+        if (!isset($_COOKIE['cart'])) {
+            if ($isbn != null) {
+                $bookArray = $this->cartCookie->add_cart($isbn);
+            } else {
+                setcookie('cart', serialize($bookArray), time() + 64000 * 10, '/');
+            }
+        }
+        else{
+            if ($isbn != null) {
+            $bookArray = $this->cartCookie->add_cart($isbn);
+            }
+            else{
+                $bookArray = unserialize($_COOKIE['cart']);
+            }
+        }
+        
+        $bookArray = $this->bookCtr->returnBooks($bookArray);
+        //Realiza os calculos para atribuir nos campos de subtotal, frete e total
+        $qty = $this->countQty($bookArray);
+        $subTotal = $this->total($bookArray);
+        $frete = $this->frete($qty);
+        $totalCart = $frete + $subTotal;
+        
+        $this->historicalCtr->addHistoricalAccessElement(\App\HistoricalAccessElement::PAGE_CART,
+                    '/cart/show',"You Cart");        
+        $histAcess = $this->historicalCtr->getHistoricalAcess();
+        
+        //Retorna a view do cart
+        return view("cart_view/cart_view", compact("categories", "bookArray","qty","subTotal", "frete", "totalCart", "histAcess"));
+    }
+
+    public function attCart(Request $request) {
+        $post = $request->except('_token'); //Recuperando informações passadas via post
+        $action = $post['action'];
+        $categories = $this->categoryCtr->getCategories();
+         $bookArray = Array();
+
+        //Chamada do metodo, seja ele de remoção ou de atualização
+        if ($action == 'delete') {
+            $bookArray = $this->cartCookie->delete_cart($post['ISBN']);
+        }
+        $bookArray = $this->bookCtr->returnBooks($bookArray);
+        //Realiza os calculos para atribuir nos campos de subtotal, frete e total
+        $qty = $this->countQty($bookArray);
+        $subTotal = $this->total($bookArray);
+        $frete = $this->frete($qty);
+        $totalCart = $frete + $subTotal;
+        
+        $this->historicalCtr->addHistoricalAccessElement(\App\HistoricalAccessElement::PAGE_CART,
+                    '/cart/show',"You Cart"); 
+        $histAcess = $this->historicalCtr->getHistoricalAcess();
+        
+        //Retorna a view do cart
+        return view("cart_view/cart_view", compact("categories", "bookArray","qty","subTotal", "frete", "totalCart","histAcess", "histAcess"));
+    }
+
+    public function total($bookArray) {
+        $cont = 0;
+        foreach ($bookArray as $book => $item):
+            $cont += $item['price'] * $item['quantity'];
+        endforeach;
+        return $cont;
+    }
+    
+    public function countQty($bookArray) {
+        $cont = 0;
+        foreach ($bookArray as $book => $item):
+            $cont += $item['quantity'];
+        endforeach;
+        return $cont;
+    }
+    
+    public function frete($cont) {
+        $frete = 0;
+        if ($cont > 0) {
+            $frete = (5 * ($cont - 1)) + 10;
+        }
+        return $frete;
+    }
+    
+    public function books(){
+        $books = unserialize($_COOKIE['cart']);
+        return $bookArray = $this->bookCtr->returnBooks($books);
+    }
+    
+    private function openCartView() {
         $categories = $this->categoryCtr->getCategories();
         $title_body = "Cart";
-        if ($isbn) {
-            $book = $this->book->where('ISBN', $isbn)->first();
-            $book["description"] = htmlspecialchars($book["description"]);
-            $this->cartCookie->add_cart($book);
-            
-        }
-        $subTotal = $this->cartCookie->subTotal();
+        $bookArray = $this->bookCtr->returnBooks(unserialize($_COOKIE['cart']));
+        //Realiza os calculos para atribuir nos campos de subtotal, frete e total
+        $subTotal = $this->total($bookArray);
         $frete = $this->cartCookie->calc_frete();
-        $totalCart = $frete+ $subTotal;
-        return view("cart_view/cart_view", compact("categories", "subTotal", "frete", "totalCart", "title_body"));
+        $totalCart = $frete + $subTotal;
+        //Retorna a view do cart
+        return view("cart_view/cart_view", compact("categories", "bookArray", "subTotal", "frete", "totalCart", "title_body"));
+   
     }
 
 }
