@@ -64,8 +64,7 @@ class CartController extends Controller {
         $post = $request->except('_token'); //Recuperando informações passadas via post
         $action = $post['action'];
         $categories = $this->categoryCtr->getCategories();
-        $title_body = "Cart";
-        $bookArray = Array();
+         $bookArray = Array();
 
         //Chamada do metodo, seja ele de remoção ou de atualização
         if ($action == 'delete') {
@@ -77,10 +76,13 @@ class CartController extends Controller {
         $subTotal = $this->total($bookArray);
         $frete = $this->frete($qty);
         $totalCart = $frete + $subTotal;
+        
         $this->historicalCtr->addHistoricalAccessElement(\App\HistoricalAccessElement::PAGE_CART,
                     '/cart/show',"You Cart"); 
+        $histAcess = $this->historicalCtr->getHistoricalAcess();
+        
         //Retorna a view do cart
-        return view("cart_view/cart_view", compact("categories", "bookArray","qty","subTotal", "frete", "totalCart","histAcess", "title_body"));
+        return view("cart_view/cart_view", compact("categories", "bookArray","qty","subTotal", "frete", "totalCart","histAcess", "histAcess"));
     }
 
     public function total($bookArray) {

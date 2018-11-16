@@ -236,7 +236,7 @@ ul{
 /*Books view*/
 @media screen and (min-width: 768px) {
     .cell{
-        height:400px;
+        height:440px;
     }
     
     .container-body{
@@ -276,6 +276,17 @@ footer {
     line-height: 60px;
     background-color: #2874f0;
 }
+
+.links_body {
+    color:#122b40 ;
+    text-decoration: none;      
+}
+
+.links_body:hover {
+    color:#2469d9;
+    text-decoration: none;
+}
+
 
 .homeLink{
     color: white;
