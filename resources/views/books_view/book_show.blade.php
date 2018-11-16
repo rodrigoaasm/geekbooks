@@ -51,7 +51,7 @@
                     </td><tr>
                     <tr><td colspan="3">
                         <p class="text-justify caption">
-                            {{$book["description"]}}
+                            {!! $book["description"] !!}
                         </p>
                     </td></tr>
                     <tr>
