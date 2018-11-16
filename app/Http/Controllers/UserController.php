@@ -3,6 +3,7 @@
 
 use App\User;
 use Request;
+use App\Http\Controllers\CategoryController;
 
 class UserController
 {

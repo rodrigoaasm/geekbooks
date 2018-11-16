@@ -80,12 +80,12 @@
                 <div class="div-cart">
                     <div class="row">
                         <div class="col-md-3">
-                            <form action="/user" method="post">
+                            <form action="{{url('/')}}" method="post">
                                 <button type="submit" class="btn-primary">Continuar a Comprar</button>
                             </form>
                         </div>
                         <div class="col-md-offset-4">
-                            <form action="/user" method="post">
+                            <form action="{{url('/user')}}" method="post">
                                 <button class="btn-primary">Finalizar Compra</button>
                             </form>
                         </div>

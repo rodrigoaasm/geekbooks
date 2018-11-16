@@ -18,7 +18,7 @@
 <body>
 <div class="container">
     <h1>Nova Notícia</h1>
-    <form action="user/add" method="post">
+    <form action="{{url('/user/add')}}" method="post">
         <input type="hidden" name="_token" value="{{{ csrf_token() }}}"/>
         <div class="form-group"><label>Email:</label> <input class="form-control" name="email" value="{{$e}}"></div>
         <div class="form-group"><label>First Name:</label> <input class="form-control" name="fname"></div>
