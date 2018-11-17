@@ -11,20 +11,22 @@ class Cart_Cookie extends Model {
     
     //Determina o nome e tempo do cookie
     private $cookie_name = 'cart';
-    private $time = 600000;
+    private $time = 60*24*7;
     
     public function setCook($bookArray){//Metodo utilizado para setar o valor no cookie
-        setcookie($this->cookie_name, serialize($bookArray), time() + $this->time, '/');
+        Cookie::queue($this->cookie_name, serialize($bookArray), $this->time, '/');
+        ///setcookie($this->cookie_name, serialize($bookArray), time() + $this->time, '/');
     }
     
     public function getCook(){//Metodo usado para receber os valores do cookie
-        return unserialize($_COOKIE['cart']);
+        return unserialize(Cookie::get($this->cookie_name));
+        //return unserialize($_COOKIE[$this->cookie_name]);
     }
     
     //Metodo utilizado para adicionar no cart
     public function add_cart($isbn) {
         // Se o cookie já existir irá receber os valores contidos nele
-        if (isset($_COOKIE['cart'])) {
+        if (isset($_COOKIE[$this->cookie_name])) {
             $bookArray = $this->getCook();
             //Se no array recebido houver uma posição com o isbn fornecido irá incrementar em 1
             //se não houver irá adicionar a esta posição a quantidade 1
