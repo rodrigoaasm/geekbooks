@@ -267,13 +267,13 @@ ul{
     height: 8em;
 }
 footer {
-    margin-top: 35px;
+    margin-top: 2.5em;
     position: relative;
     left: 0;
     right: 0;
     bottom: 0;
     width: 100%;
-    line-height: 60px;
+    line-height: 4.27em;
     background-color: #2874f0;
 }
 
@@ -316,7 +316,7 @@ footer {
     color: #ADD8E6;
 }
 
-html, body {
+.footerAjust {
     height: 100%;
-    min-height:100%;
+    min-height:41.46em;
 }

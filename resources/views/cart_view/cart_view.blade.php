@@ -1,6 +1,6 @@
 @include('../templates/headerbase')
 
-<div class='container container-body'>
+<div class='container container-body footerAjust'>
 
     <h1>Your Cart</h1>
 
@@ -61,6 +61,7 @@
                         <td colspan="3"><b>Sub-total</b></td>
                         <td>{{'$'.$subTotal}}</td>
                         <td></td>
+                    </tr>
                     <tr id="cart_frete">
                         <td colspan="3"><b>Shipping</b></td>
                         <td>{{'$'.$frete}}</td>
@@ -73,7 +74,6 @@
                     </tr>
                 </tfoot>
             </table>
-            </form>
             <div class="div-cart">
                 <div class="row">
                     <div class="col-md-3">
@@ -91,9 +91,10 @@
             </div>
         </div>
     </div>
+    <script src="{{url('js/cart_view.js')}}"></script>
+    @endif
 </div>
-<script src="{{url('js/cart_view.js')}}"></script>
-@endif
+
 </body>
 
 @include('../templates/footerBase')
