@@ -15,10 +15,13 @@
 Route::any('/user','UserController@login');
 Route::post('/user/login','UserController@emailVerify');
 Route::post('/user/add','UserController@addUser');
+Route::post('/user/finish','UserController@addOrder');
 
 Route::get('/cart/show/{ISBN?}', "CartController@show");
 Route::post('/cart/attCart', "CartController@attCart");
 
+Route::get('/order/show/{email?}', "OrderController@getCart");
+Route::post('/order/search', "OrderController@getSearch");
 
 Route::get('/show/{ISBN}', "BookController@show");
 Route::get('/search/{keyword}', 'BookController@bySearch');

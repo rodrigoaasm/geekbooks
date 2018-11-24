@@ -23,6 +23,12 @@ class Cart_Cookie extends Model {
         //return unserialize($_COOKIE[$this->cookie_name]);
     }
     
+    //Metodo utilizado para remover o cookie
+    public  function unsetCookie(){
+        Cookie::queue($this->cookie_name, null, $this->time - 60000, '/');
+    }
+
+
     //Metodo utilizado para adicionar no cart
     public function add_cart($isbn) {
         // Se o cookie já existir irá receber os valores contidos nele

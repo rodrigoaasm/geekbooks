@@ -112,4 +112,22 @@ class BookController extends Controller
         endforeach;
         return $bookArray;
     }
+    
+    public function returnBookOrders($bookArray){
+        foreach($bookArray as $key => $item):
+            $book = $this->book->where('ISBN',$item['ISBN'])->first();
+            $items = array(
+               'ISBN' => $book['ISBN'],
+                'title' => $book['title'],
+                'qty'=>$item['qty'],
+                'price'=>$item['price'],
+                'publisher'=>$book['publisher'],
+                'pubdate'=>$book['pubdate'],
+                'edition'=>$book['edition'],
+                'pages'=>$book['pages']
+            );
+            $bookArray[$key] = $items;
+        endforeach;
+        return $bookArray;
+    }
 }

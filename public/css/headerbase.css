@@ -8,7 +8,7 @@ ul{
 .flipkart-navbar {
     background-color: #2874f0;
     color: #FFFFFF;
-    
+
 }
 
 .navbar-fixed-top{
@@ -220,7 +220,7 @@ ul{
 }
 
 @media screen and (max-height: 450px) {
-  .sidenav a {font-size: 18px;}
+    .sidenav a {font-size: 18px;}
 }
 
 .sidenav-heading{
@@ -238,7 +238,7 @@ ul{
     .cell{
         height:440px;
     }
-    
+
     .container-body{
         padding-top: 120px;
     }
@@ -319,4 +319,40 @@ footer {
 .footerAjust {
     height: 100%;
     min-height:41.46em;
+}
+
+.searchButtonAjust{
+    height: 2.35em;
+    border-style: solid;
+    border-color: black;
+    border-width: 0.1em;
+}
+
+.searchAjust{
+    border-style: solid;
+    border-width: 0.1em;
+}
+
+.orderMasterCell{
+    min-height: 19em;
+}
+
+a.list-group-item {
+    height:auto;
+    min-height:220px;
+}
+a.list-group-item.active small {
+    color:#fff;
+}
+.buttonSeeProduct {
+    text-decoration: none;   
+}
+
+.imgSize{
+    width: 185px;
+    height: 220px;
+}
+
+.ajustOrder{
+    margin-top: 1em;
 }

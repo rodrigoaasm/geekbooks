@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\HistoryController;
-use App\Book;
 use App\Cart_Cookie;
+use App\Order;
 
 class CartController extends Controller {
 
@@ -14,6 +14,7 @@ class CartController extends Controller {
     private $historicalCtr;
     private $bookCtr;
     private $cartCookie;
+    private $order;
 
     //Metodo construtor
     function __construct(BookController $BookCtr, Cart_Cookie $Cart) {
@@ -84,7 +85,7 @@ class CartController extends Controller {
         $histAcess = $this->historicalCtr->getHistoricalAcess();
 
         //Retorna a view do cart
-        return view("cart_view/cart_view", compact("categories", "bookArray", "qty", "subTotal", "frete", "totalCart", "histAcess", "histAcess"));
+        return view("cart_view/cart_view", compact("categories", "bookArray", "qty", "subTotal", "frete", "totalCart", "histAcess"));
     }
 
     //Metódo que obterá o valor do sub total, multiplicando o valor do livro por sua quantidade
@@ -114,5 +115,16 @@ class CartController extends Controller {
             $frete = (5 * ($cont - 1)) + 10;
         }
         return $frete;
+    }
+
+    //Metodo utilizado para remover o cookie
+    public function removeCart(){
+        $this->cartCookie->unsetCookie();
+    }
+    
+    //Metodo utilizado para retornar os items do cart
+    public function returnCartItems(){
+        $bookArray = $this->bookCtr->returnBooks($this->cartCookie->getCook());
+        return $bookArray;
     }
 }

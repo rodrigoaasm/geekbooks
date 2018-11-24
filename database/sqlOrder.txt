@@ -1,0 +1,15 @@
+CREATE TABLE `bookorders` (
+  `orderID` int(11) NOT NULL AUTO_INCREMENT,
+  `custID` int(6) DEFAULT NULL,
+  `orderdate` int(11) DEFAULT NULL,
+  PRIMARY KEY (`orderID`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `bookorderitems` (
+  `orderID` int(11) NOT NULL,
+  `ISBN` varchar(11) NOT NULL,
+  `qty` int(4) DEFAULT NULL,
+  `price` double(6,2) DEFAULT NULL,
+  PRIMARY KEY (`orderID`,`ISBN`),
+  CONSTRAINT `bookorderitems_ibfk_1` FOREIGN KEY (`orderID`) REFERENCES `bookorders` (`orderID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
