@@ -17,6 +17,8 @@ Route::post('/user/login','UserController@emailVerify');
 Route::post('/user/add','UserController@addUser');
 Route::post('/user/finish','UserController@addOrder');
 
+Route::get('/info/', 'UserController@showInfo');
+
 Route::get('/cart/show/{ISBN?}', "CartController@show");
 Route::post('/cart/attCart', "CartController@attCart");
 

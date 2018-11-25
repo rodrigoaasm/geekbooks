@@ -45,22 +45,31 @@ class UserController {
     private function showOrderFinish($email) {
         //Recebe os dados do usuario
         $userFound = $this->user->where('email', $email)->first();
-        $address = $userFound['street'].' - '.$userFound['city'].' - '.$userFound['state'].' - '.$userFound['zip'];
+        $address = $userFound['street'] . ' - ' . $userFound['city'] . ' - ' . $userFound['state'] . ' - ' . $userFound['zip'];
         $categories = $this->categoryCtr->getCategories();
         $bookArray = $this->cartCtr->returnCartItems();
-        
+
         //Realiza os calculos para atribuir nos campos de subtotal, frete e total
         $qty = $this->cartCtr->countQty($bookArray);
         $subTotal = $this->cartCtr->total($bookArray);
         $frete = $this->cartCtr->frete($qty);
         $totalCart = $frete + $subTotal;
-        
+
         $this->historicalCtr->addHistoricalAccessElement(\App\HistoricalAccessElement::PAGE_CART, '/cart/show', "You Cart");
         $histAcess = $this->historicalCtr->getHistoricalAcess();
         //Aqui decidir o que vai ser feito caso já haja o email cadastrado
         return view("cart_view/order_finish", compact("categories", "bookArray", "email", "address", "qty", "subTotal", "frete", "totalCart", "histAcess"));
     }
-    
+
+    //Metodo que realizara todos os procedimentos necessários para que seja disponibilizado a view de finish cart
+    public function showInfo() {
+        $categories = $this->categoryCtr->getCategories();
+        $this->historicalCtr->addHistoricalAccessElement(\App\HistoricalAccessElement::PAGE_CART, '/cart/show', "You Cart");
+        $histAcess = $this->historicalCtr->getHistoricalAcess();
+
+        return view("user_view/info", compact("categories", "histAcess"));
+    }
+
     //Metodo que recebera o email e adicionar os itens do cart no banco e depois removera os itens do cart
     public function addOrder() {
         $email = Request::input('email');
