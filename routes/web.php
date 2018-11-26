@@ -11,8 +11,11 @@
 |
 */
 
+Route::any('/','BookController@byCategory');
+
 //alterar esta rota para post ou get assim que o botão do carrinho for arrumado
 Route::any('/user','UserController@login');
+Route::post('/user/check','UserController@checkUser');
 Route::post('/user/login','UserController@emailVerify');
 Route::post('/user/add','UserController@addUser');
 Route::post('/user/finish','UserController@addOrder');
