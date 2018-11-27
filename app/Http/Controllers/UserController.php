@@ -3,6 +3,8 @@
 namespace app\Http\Controllers;
 
 use App\User;
+use function foo\func;
+use Illuminate\Support\Facades\Mail;
 use Request;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HistoryController;
@@ -38,7 +40,7 @@ class UserController
         $email = Request::input('email');
         $resposta = User::where('email', '=', $email)->get();
         $request = Request::all();
-        $validate = validator($request, $this->user->email_rule,$this->user->email_mesage );
+        $validate = validator($request, $this->user->email_rule, $this->user->email_mesage);
         if ($validate->fails()) {
             return redirect('/user')->withErrors($validate)->with('e', $email);
         } else {
@@ -124,6 +126,23 @@ class UserController
         //Recebe os dados do usuario
         $userFound = $this->user->where('email', $email)->first();
         $custID = $userFound['custID'];
+        $orders = $this->cartCtr->returnCartItems();
+
+        $total = 0;
+
+        foreach ($orders as $order){
+            $total += $order['price'] * $order['quantity'];
+        }
+
+        $data['email'] = $email;
+        $data['orders'] = $orders;
+        $data['total'] = $total;
+
+        Mail::send('email_template.email_send', $data, function ($message) use ($data) {
+            $message->from('geekbookscom222@gmail.com', 'geekbooks');
+            $message->to($data['email']);
+            $message->subject('Compra geek books');
+        });
         //Chama o metodo utilizado para inserir os dados do cart no banco
         $this->orderCtr->insertCart($this->cartCtr->returnCartItems(), $custID);
         //Remove os dados do cart
