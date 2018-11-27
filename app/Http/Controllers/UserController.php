@@ -98,7 +98,14 @@ class UserController
         //Aqui decidir o que vai ser feito caso já haja o email cadastrado
         return view("cart_view/order_finish", compact("categories", "bookArray", "email", "address", "qty", "subTotal", "frete", "totalCart", "histAcess"));
     }
+//Metodo que realizara todos os procedimentos necessários para que seja disponibilizado a view de finish cart
+    public function showInfo() {
+        $categories = $this->categoryCtr->getCategories();
+        $this->historicalCtr->addHistoricalAccessElement(\App\HistoricalAccessElement::PAGE_CART, '/cart/show', "You Cart");
+        $histAcess = $this->historicalCtr->getHistoricalAcess();
 
+        return view("user_view/info", compact("categories", "histAcess"));
+    }
     //Metodo que recebera o email e adicionar os itens do cart no banco e depois removera os itens do cart
     public function addOrder()
     {
