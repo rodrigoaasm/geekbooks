@@ -356,3 +356,8 @@ a.list-group-item.active small {
 .ajustOrder{
     margin-top: 1em;
 }
+
+.theader{
+    background-color: #122b40;
+    color: white;
+}
