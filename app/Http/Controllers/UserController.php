@@ -37,39 +37,47 @@ class UserController
     {
         $email = Request::input('email');
         $resposta = User::where('email', '=', $email)->get();
-        if ($resposta->count() == 0) {
-            return view('user_view/form_user')->with('e', $email);
+        $request = Request::all();
+        $validate = validator($request, $this->user->email_rule,$this->user->email_mesage );
+        if ($validate->fails()) {
+            return redirect('/user')->withErrors($validate)->with('e', $email);
         } else {
-            return view('user_view/form_user')->with('usr', $resposta[0]);
+            if ($resposta->count() == 0) {
+                return view('user_view/form_user')->with('e', $email);
+            } else {
+                return view('user_view/form_user')->with('usr', $resposta[0]);
+            }
         }
+
     }
 
     function checkUser()
     {
         $email = Request::input('email');
         $resposta = User::where('email', '=', $email)->get();
-        if ($resposta->count() == 0) {
-            $user = new User();
-            $user->fname = Request::input('fname');
-            $user->lname = Request::input('lname');
-            $user->email = Request::input('email');
-            $user->street = Request::input('street');
-            $user->state = Request::input('state');
-            $user->city = Request::input('city');
-            $user->zip = Request::input('zip');
-            $this->addUser($user);
+        $request = Request::all();
+        $validate = validator($request, $this->user->rules, $this->user->mesages);
+        if ($validate->fails()) {
+            return view('user_view/form_user')->withErrors($validate)->with('usr', $request);
         } else {
-            $user = new User();
-            $user->fname = Request::input('fname');
-            $user->lname = Request::input('lname');
-            $user->email = Request::input('email');
-            $user->street = Request::input('street');
-            $user->state = Request::input('state');
-            $user->city = Request::input('city');
-            $user->zip = Request::input('zip');
-            $user->save();
+            if ($resposta->count() != 0) {
+                User::where('email', '=', $email)->update(array('fname' => Request::input('fname'),
+                    'lname' => Request::input('lname'), 'street' => Request::input('street'), 'state' => Request::input('state'),
+                    'city' => Request::input('city'), 'zip' => Request::input('zip')));
+            } else {
+                $user = new User();
+                $user->fname = Request::input('fname');
+                $user->lname = Request::input('lname');
+                $user->email = Request::input('email');
+                $user->street = Request::input('street');
+                $user->state = Request::input('state');
+                $user->city = Request::input('city');
+                $user->zip = Request::input('zip');
+                $user->save();
+            }
             return $this->showOrderFinish($email);
         }
+
     }
 
     function updateUser($usr)
@@ -98,14 +106,17 @@ class UserController
         //Aqui decidir o que vai ser feito caso já haja o email cadastrado
         return view("cart_view/order_finish", compact("categories", "bookArray", "email", "address", "qty", "subTotal", "frete", "totalCart", "histAcess"));
     }
+
 //Metodo que realizara todos os procedimentos necessários para que seja disponibilizado a view de finish cart
-    public function showInfo() {
+    public function showInfo()
+    {
         $categories = $this->categoryCtr->getCategories();
         $this->historicalCtr->addHistoricalAccessElement(\App\HistoricalAccessElement::PAGE_CART, '/cart/show', "You Cart");
         $histAcess = $this->historicalCtr->getHistoricalAcess();
 
         return view("user_view/info", compact("categories", "histAcess"));
     }
+
     //Metodo que recebera o email e adicionar os itens do cart no banco e depois removera os itens do cart
     public function addOrder()
     {

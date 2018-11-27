@@ -18,15 +18,31 @@
 <body>
 <div class="container">
     <h1>Novo usuário</h1>
+
+    @if(isset($errors) && count($errors) > 0)
+        <div class="alert alert-danger">
+            @foreach( $errors->all() as $error)
+                <p>{{$error}}</p>
+            @endforeach
+        </div>
+    @endif
+
     <form action="{{url('/user/check')}}" method="post">
         <input type="hidden" name="_token" value="{{{ csrf_token() }}}"/>
-        <div class="form-group"><label>Email:</label> <input class="form-control" name="email" value="{{$e or $usr['email']}}" required="required"></div>
-        <div class="form-group"><label>First Name:</label> <input class="form-control" name="fname" required="required" value="{{$usr['fname'] or ''}}"></div>
-        <div class="form-group"><label>Last Name:</label> <input class="form-control" name="lname" required="required" value="{{$usr['lname'] or ''}}"></div>
-        <div class="form-group"><label>Street:</label> <input class="form-control" name="street" required="required" value="{{$usr['street'] or ''}}"></div>
-        <div class="form-group"><label>City:</label> <input class="form-control" name="city" required="required" value="{{$usr['city'] or ''}}"></div>
-        <div class="form-group"><label>State:</label> <input class="form-control" name="state" required="required" value="{{$usr['state'] or ''}}"></div>
-        <div class="form-group"><label>Zip:</label> <input class="form-control" name="zip" required="required" value="{{$usr['zip'] or ''}}"></div>
+        <div class="form-group"><label>Email:</label> <input readonly="readonly" class="form-control" name="email"
+                                                             value="{{$e or $usr['email']}}"></div>
+        <div class="form-group"><label>First Name:</label> <input class="form-control" name="fname"
+                                                                  value="{{$usr['fname'] or ''}}"></div>
+        <div class="form-group"><label>Last Name:</label> <input class="form-control" name="lname"
+                                                                 value="{{$usr['lname'] or ''}}"></div>
+        <div class="form-group"><label>Street:</label> <input class="form-control" name="street"
+                                                              value="{{$usr['street'] or ''}}"></div>
+        <div class="form-group"><label>City:</label> <input class="form-control" name="city"
+                                                            value="{{$usr['city'] or ''}}"></div>
+        <div class="form-group"><label>State:</label> <input class="form-control" name="state"
+                                                             value="{{$usr['state'] or ''}}"></div>
+        <div class="form-group"><label>Zip:</label> <input class="form-control cep-mask" name="zip"
+                                                           value="{{$usr['zip'] or ''}}"></div>
         <button type="submit" class="btn btn-primary btn-block">Submit</button>
     </form>
 
