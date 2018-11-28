@@ -13,7 +13,6 @@ use \App\Http\Controllers\OrderController;
 
 class UserController
 {
-
     private $categoryCtr;
     private $cartCtr;
     private $historicalCtr;
@@ -31,8 +30,13 @@ class UserController
 
     public function login()
     {
+        $this->historicalCtr->loadHistoricalAcess();
+        $histAcess = $this->historicalCtr->getHistoricalAcess();
+        
+        
+        
         $categories = $this->categoryCtr->getCategories();
-        return view('user_view/login')->with('categories', $categories);
+        return view('user_view/login',compact('categories','histAcess'));
     }
 
     public function emailVerify()
