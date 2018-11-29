@@ -33,8 +33,6 @@ class UserController
         $this->historicalCtr->loadHistoricalAcess();
         $histAcess = $this->historicalCtr->getHistoricalAcess();
         
-        
-        
         $categories = $this->categoryCtr->getCategories();
         return view('user_view/login',compact('categories','histAcess'));
     }

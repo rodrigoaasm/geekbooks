@@ -22,11 +22,11 @@
                     <div class="row row1">
                         <div class="col-sm-4 col-md-3 col">
                             <h3 style="margin:0px;" id="title_page"><span class="smallnav menu" >☰ GeekBooks <img class="logo" alt="logo-geekbooks" src='https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Books_Flat_Icon_Vector.svg/2000px-Books_Flat_Icon_Vector.svg.png'>
-                                </span></h3>
-                            <h2 style="margin:0px;"><span class="largenav">GeekBooks<img class=" logo" alt="logo-geekbooks" src='https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Books_Flat_Icon_Vector.svg/2000px-Books_Flat_Icon_Vector.svg.png'>
-                                </span></h2>
+                                   </span></h3>
+                            <h3 style="margin:0px;"><a class='link_class' href="{{url('/')}}"><span class="largenav">GeekBooks<img class=" logo" alt="logo-geekbooks" src='https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Books_Flat_Icon_Vector.svg/2000px-Books_Flat_Icon_Vector.svg.png'>
+                                </span></a></h3>
                         </div>
-                        <div class="flipkart-navbar-search text-primary smallsearch col-sm-6 col-md-7 col-xs-11">
+                        <div class="flipkart-navbar-search text-primary smallsearch col-sm-5 col-md-6 ">
                             <div class="row">
                                 <form action="{{url('/search')}}" method="post">
                                     <input type="hidden" name="_token" value="{{csrf_token()}}">
@@ -40,14 +40,18 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="cart largenav  col-sm-2">
+                        <div class="cart largenav  col-sm-3  col-md-3 col ">
+                            
+                            <a class="user cart-button" href="{{url('/cart/show')}}">                                
+                                <span class="glyphicon glyphicon-user"></span>
+                                User
+                            </a>
                             <a class="cart-button" href="{{url('/cart/show')}}">
                                 <svg class="cart-svg " width="16 " height="16 " viewBox="0 0 16 16 "><!--Desenhando icon-->
                                 <path d="M15.32 2.405H4.887C3 2.405 2.46.805 2.46.805L2.257.21C2.208.085 2.083 0 1.946 0H.336C.1 0-.064.24.024.46l.644 1.945L3.11 9.767c.047.137.175.23.32.23h8.418l-.493 1.958H3.768l.002.003c-.017 0-.033-.003-.05-.003-1.06 0-1.92.86-1.92 1.92s.86 1.92 1.92 1.92c.99 0 1.805-.75 1.91-1.712l5.55.076c.12.922.91 1.636 1.867 1.636 1.04 0 1.885-.844 1.885-1.885 0-.866-.584-1.593-1.38-1.814l2.423-8.832c.12-.433-.206-.86-.655-.86 " fill="#fff "></path>
                                 </svg> Cart
-
-                            </a>
-                        </div>
+                            </a>                          
+                        </div>                        
                     </div>
                 </div> 
             </div>
@@ -73,11 +77,15 @@
                 <div class="container" style="background-color: #2874f0; padding-top: 10px;">
                     <span class="sidenav-heading">GeekBooks</span>
                     <a href="javascript:void(0)" class="closebtn" id="closeMySideNav">×</a>
-                </div>   
+                </div>  
+                <a class="links" href="{{url('/cart/show')}}">
+                    <span class="glyphicon glyphicon-user"></span>
+                                User 
+                </a> 
                 <a class="links" href="{{url('/cart/show')}}">
                     <svg class="cart-svg " width="16 " height="16 " viewBox="0 0 16 16 ">
                     <path d="M15.32 2.405H4.887C3 2.405 2.46.805 2.46.805L2.257.21C2.208.085 2.083 0 1.946 0H.336C.1 0-.064.24.024.46l.644 1.945L3.11 9.767c.047.137.175.23.32.23h8.418l-.493 1.958H3.768l.002.003c-.017 0-.033-.003-.05-.003-1.06 0-1.92.86-1.92 1.92s.86 1.92 1.92 1.92c.99 0 1.805-.75 1.91-1.712l5.55.076c.12.922.91 1.636 1.867 1.636 1.04 0 1.885-.844 1.885-1.885 0-.866-.584-1.593-1.38-1.814l2.423-8.832c.12-.433-.206-.86-.655-.86 " fill="#fff "></path>
-                    </svg> Link                     
+                    </svg> Cart                     
                 </a>   
                 <a class="links" href="{{url('/order/show')}}">Order History</a>
                 <div class="dropdown dropdown-side" id="dropdown-side">
