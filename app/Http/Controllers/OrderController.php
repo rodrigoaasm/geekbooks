@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+date_default_timezone_set('America/Sao_Paulo');
 use Illuminate\Http\Request;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\CategoryController;
@@ -40,7 +40,7 @@ class OrderController extends Controller {
     //Metodo utilizado para pegar do banco as order de uma dada pessoa
     public function getCart($email = null) {
         $categories = $this->categoryCtr->getCategories();
-        $this->historicalCtr->addHistoricalAccessElement(\App\HistoricalAccessElement::PAGE_CART, '/cart/show', "Order Search");
+        $this->historicalCtr->addHistoricalAccessElement(\App\HistoricalAccessElement::PAGE_ORDER, '/order/show', "Order Search");
         $histAcess = $this->historicalCtr->getHistoricalAcess();
         $message = "Please enter your email, to search your previous orders";
         $orderItems = Array();

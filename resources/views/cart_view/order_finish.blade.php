@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-sm-12 col-md-12 col-lg-12">
             <table class="table">
-                <thead class="thead-dark">
+                <thead class="theader">
                     <tr>
                         <th scope="col">Book</th>
                         <th scope="col">Price</th>
@@ -18,12 +18,19 @@
                 <tbody>
 
                     @foreach ($bookArray as $key => $item)
-
                     <tr>
-                        <th><img class=" imgs img-thumbnail"
-                                 src="{{'http://yorktown.cbe.wwu.edu/sandvig/mis314/assignments/bookstore/bookimages/'.$item["ISBN"].'.01.MZZZZZZZ.jpg'}}"
-                                 alt="{{$item["name"]}}"
-                                 <br><a href="{{url('show').'/'.$item['ISBN']}}">{{$item['name']}}</a></th>
+                        <td><div class="row">
+                                <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5">
+                                    <img class=" imgs img-thumbnail"
+                                         src="{{'http://yorktown.cbe.wwu.edu/sandvig/mis314/assignments/bookstore/bookimages/'.$item["ISBN"].'.01.MZZZZZZZ.jpg'}}"
+                                         alt="{{$item["name"]}}">
+                                </div>
+                                <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
+                                    <a href="{{url('show').'/'.$item['ISBN']}}">{{$item['name']}}</a>
+                                </div>
+                            </div>
+                            </div>
+                        </td>
                         <td>{{'$'.$item['price']}}</td>
                         <td>{{$item['quantity']}}</td>
                         <td>{{'$'.$item['total']}}</td>
@@ -49,21 +56,21 @@
                     </tr>
                 </tfoot>
             </table>
-            <div class="div-cart">
-                <div class="row">
-                    <div class="col-md-3">
+            <div class="container">
+                <ul class="list-unstyled list-inline text-center py-5">
+                    <li>
                         <form action="{{url('/')}}" method="post">
-                            <button type="submit" class="btn-primary">Continue to Buy</button>
+                            <button type="submit" class="btn-primary btn-lg">Continue to Buy</button>
                         </form>
-                    </div>
-                    <div class="col-md-offset-4">
+                    </li>
+                    <li>
                         <form action="{{url('/user/finish')}}" method="post">
                             <input type="hidden" name="_token" value="{{csrf_token()}}">
                             <input type="hidden" name="email" value="{{$email}}">
-                            <button class="btn-primary">Finalize Buy</button>
+                            <button class="btn-primary btn-lg">Confirm Buy</button>
                         </form>
-                    </div>
-                </div>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>

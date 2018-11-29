@@ -14,9 +14,10 @@ namespace App;
  * @author Rodrigo Maia
  */
 class HistoricalAccessElement {
-    //put your code here    
+    //put your code here 
+    const PAGE_ORDER = '0';
     const PAGE_CATEGORY = '1';
-    const PAGE_SEARCH = '2';
+    const PAGE_SEARCH = '2';    
     const PAGE_BOOK = '3';
     const PAGE_CART= '4';
 
@@ -28,7 +29,8 @@ class HistoricalAccessElement {
         $this->title = $aTitle;
        
         //defini valor hieratico do elemento historico
-        if($aPage == $this::PAGE_CATEGORY or $aPage == $this::PAGE_SEARCH){
+        if($aPage == $this::PAGE_CATEGORY or $aPage == $this::PAGE_SEARCH
+                or $aPage == $this::PAGE_ORDER){
             $this->hierc = 1;
         }else if($aPage == $this::PAGE_BOOK){
             $this->hierc = 2;

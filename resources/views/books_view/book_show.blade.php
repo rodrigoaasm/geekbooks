@@ -1,6 +1,6 @@
 @include('../templates/headerbase')
 
-        <div class='container container-body'>
+        <div class='container container-body footerAjust'>
             
             <div class="col-sm-2"></div>                                    
             <table class="col col-sm-8 thumbnail">

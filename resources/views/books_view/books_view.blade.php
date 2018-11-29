@@ -1,6 +1,6 @@
 @include('../templates/headerbase')
 
-        <div class='container container-body'>
+        <div class='container container-body footerAjust'>
 
             <div class="row">
             @foreach($books as $book)  <!--Interando books-->

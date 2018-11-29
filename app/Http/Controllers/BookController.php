@@ -61,13 +61,16 @@ class BookController extends Controller
         $categories = $this->categoryCtr->getCategories();//recuperando categorias
 
         $books = $this->book
-                ->join('bookauthorsbooks', 'bookdescriptions.ISBN', '=', 'bookauthorsbooks.ISBN')
+                ->join('bookauthorsbooks', 'bookdescriptions.ISBN', '=', 'bookauthorsbooks.ISBN')                
                 ->join('bookauthors', 'bookauthorsbooks.AuthorID', '=', 'bookauthors.AuthorID')
                 ->where('title','LIKE','%'.$keyWord.'%')
                 ->orWhere('description','LIKE','%'.$keyWord.'%')
                 ->orWhere('publisher','LIKE','%'.$keyWord.'%')
                 ->orWhere('nameF','LIKE','%'.$keyWord.'%')
-                ->orWhere('nameL','LIKE','%'.$keyWord.'%')->get();              
+                ->orWhere('nameL','LIKE','%'.$keyWord.'%')
+                ->select('bookdescriptions.ISBN','bookdescriptions.description',
+                         'bookdescriptions.title')->distinct()->get(); 
+                          
                 
         foreach($books as $book){//Resumindo descrições
             $book['description'] = $this::str_resume($book['description'],120);

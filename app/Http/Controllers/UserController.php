@@ -13,7 +13,6 @@ use \App\Http\Controllers\OrderController;
 
 class UserController
 {
-
     private $categoryCtr;
     private $cartCtr;
     private $historicalCtr;
@@ -32,8 +31,13 @@ class UserController
     //Método que abre a tela para inserção do email
     public function login()
     {
+        $this->historicalCtr->loadHistoricalAcess();
+        $histAcess = $this->historicalCtr->getHistoricalAcess();
+        
+        
+        
         $categories = $this->categoryCtr->getCategories();
-        return view('user_view/login')->with('categories', $categories);
+        return view('user_view/login',compact('categories','histAcess'));
     }
     //Método que verifica se o email já existe e faz a validação no email
     public function emailVerify()

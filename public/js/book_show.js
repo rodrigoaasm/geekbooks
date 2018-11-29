@@ -60,6 +60,6 @@ function expandImg(){
      $('#flipkart-navbar').html( navDefault); //Restaura nav   
      document.body.removeChild(elemtDiv); // remove imagem
      $('#title_page').click(openNav);//retornando listeners
-    $('#closeMySideNav').click(closeNav);
+     $('#closeMySideNav').click(closeNav);
  }
 

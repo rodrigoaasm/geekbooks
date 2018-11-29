@@ -50,9 +50,16 @@ class HistoryController extends Controller
         }
     }  
    
+    public function loadHistoricalAcess(){
+        if (isset($_COOKIE[$this->cookie_name])) {    
+            $this->arrayHistoryAcess = unserialize($_COOKIE[$this->cookie_name]);//se existir recupera os dados
+        }
+    }
+    
+    
     public function getHistoricalAcess(){
         //retorna a lista de elementos historicos
-        if (isset($_COOKIE[$this->cookie_name])) {
+        if (isset($_COOKIE[$this->cookie_name])) {            
             return $this->arrayHistoryAcess;
         }else{
             return array();
