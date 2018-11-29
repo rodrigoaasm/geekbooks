@@ -3,8 +3,10 @@
 @foreach($orders as $order)
 <p>
     Item: {{$order['name']}} <br/>
-    Quantidade: {{$order['quantity']}} <br/>
+    Quantity: {{$order['quantity']}} <br/>
     Price: {{$order['price']}}<br/>
 </p>
     @endforeach
-<br/>O valor final da sua compra foi de R${{$total}}. (Este valor não inclui o frete)
+<br/>Sub-Total R${{$total}}.
+<br/>Shipping R${{$frete}}.
+<br/>Total R${{$frete + $total}}.

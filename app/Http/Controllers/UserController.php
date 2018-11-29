@@ -28,6 +28,7 @@ class UserController
         $this->orderCtr = $ordControll;
     }
 
+    //Método que abre a tela para inserção do email
     public function login()
     {
         $this->historicalCtr->loadHistoricalAcess();
@@ -36,7 +37,7 @@ class UserController
         $categories = $this->categoryCtr->getCategories();
         return view('user_view/login',compact('categories','histAcess'));
     }
-
+    //Método que verifica se o email já existe e faz a validação no email
     public function emailVerify()
     {
         $email = Request::input('email');
@@ -55,6 +56,7 @@ class UserController
 
     }
 
+    //Método que recebe os dados do formulário, faz a validação e insere ou altera no banco
     function checkUser()
     {
         $email = Request::input('email');
@@ -64,11 +66,11 @@ class UserController
         if ($validate->fails()) {
             return view('user_view/form_user')->withErrors($validate)->with('usr', $request);
         } else {
-            if ($resposta->count() != 0) {
+            if ($resposta->count() != 0) {//Se não retornar algum dado na consulta do email deve se fazer um update
                 User::where('email', '=', $email)->update(array('fname' => Request::input('fname'),
                     'lname' => Request::input('lname'), 'street' => Request::input('street'), 'state' => Request::input('state'),
                     'city' => Request::input('city'), 'zip' => Request::input('zip')));
-            } else {
+            } else {//se não retornar nenhum dado da consulta, é um novo usuario a ser inserido
                 $user = new User();
                 $user->fname = Request::input('fname');
                 $user->lname = Request::input('lname');
@@ -79,15 +81,9 @@ class UserController
                 $user->zip = Request::input('zip');
                 $user->save();
             }
-            return $this->showOrderFinish($email);
+            return $this->showOrderFinish($email);//chama a função que carrega a view final do carrinho
         }
 
-    }
-
-    function updateUser($usr)
-    {
-        $user = User::where('email', '=', $usr['email'])->get();
-        $user->update($usr);
     }
 
     //Metodo que realizara todos os procedimentos necessários para que seja disponibilizado a view de finish cart
@@ -140,6 +136,12 @@ class UserController
         $data['orders'] = $orders;
         $data['total'] = $total;
 
+        $qty = $this->cartCtr->countQty($orders);
+        $frete = $this->cartCtr->frete($qty);
+
+        $data['frete'] = $frete;
+
+        //Função para o envio do email confirmando a compra
         Mail::send('email_template.email_send', $data, function ($message) use ($data) {
             $message->from('geekbookscom222@gmail.com', 'geekbooks');
             $message->to($data['email']);
@@ -150,26 +152,6 @@ class UserController
         //Remove os dados do cart
         $this->cartCtr->removeCart();
         //Retorna para a main page
-        return redirect('/');
-    }
-
-    public function addUser($usr)
-    {
-        if ($usr == null) {
-            $user = new User();
-            $user->fname = Request::input('fname');
-            $user->lname = Request::input('lname');
-            $user->email = Request::input('email');
-            $user->street = Request::input('street');
-            $user->state = Request::input('state');
-            $user->city = Request::input('city');
-            $user->zip = Request::input('zip');
-
-            $user->save();
-        } else {
-            $usr->save();
-        }
-
         return redirect('/');
     }
 
