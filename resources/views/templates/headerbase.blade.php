@@ -42,7 +42,7 @@
                         </div>
                         <div class="cart largenav  col-sm-3  col-md-3 col ">
                             
-                            <a class="user cart-button" href="{{url('/cart/show')}}">                                
+                            <a class="user cart-button" href="{{url('/user')}}">
                                 <span class="glyphicon glyphicon-user"></span>
                                 User
                             </a>
