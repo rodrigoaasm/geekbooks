@@ -26,7 +26,6 @@ class CartController extends Controller {
 
     //Metodo show, mostra o carrinho, bem com seus valores
     public function show($isbn = null) {
-        $categories = $this->categoryCtr->getCategories();
         $bookArray = Array();
         //Se o cookie não existir irá verificar se foi passado um isbn, ou foi apenas acessado a tela de cart
         if (!isset($_COOKIE['cart'])) {
@@ -42,26 +41,13 @@ class CartController extends Controller {
                 $bookArray = $this->cartCookie->getCook();
             }
         }
-        //Com o valor do cookie em mãos, irá chamar o controle de livros para retornar os dados do cart
-        $bookArray = $this->bookCtr->returnBooks($bookArray);
-        //Realiza os calculos para atribuir nos campos de subtotal, frete e total
-        $qty = $this->countQty($bookArray);
-        $subTotal = $this->total($bookArray);
-        $frete = $this->frete($qty);
-        $totalCart = $frete + $subTotal;
-
-        $this->historicalCtr->addHistoricalAccessElement(\App\HistoricalAccessElement::PAGE_CART, '/cart/show', "You Cart");
-        $histAcess = $this->historicalCtr->getHistoricalAcess();
-
-        //Retorna a view do cart
-        return view("cart_view/cart_view", compact("categories", "bookArray", "qty", "subTotal", "frete", "totalCart", "histAcess"));
+        return $this->returnView($bookArray);
     }
 
     //Metodo que atualizará o cart, seja por um delete ou por um atualizar da quantidade
     public function attCart(Request $request) {
         $post = $request->except('_token'); //Recuperando informações passadas via post
         $action = $post['action'];
-        $categories = $this->categoryCtr->getCategories();
         $bookArray = Array();
 
         //Chamada do metodo, seja ele de remoção ou de atualização
@@ -74,6 +60,11 @@ class CartController extends Controller {
                 $bookArray = $this->cartCookie->update_cart($post['ISBN'], $post['quantity']);
             }
         }
+        return $this->returnView($bookArray);
+    }
+    
+    private function returnView($bookArray){
+        $categories = $this->categoryCtr->getCategories();
         $bookArray = $this->bookCtr->returnBooks($bookArray);
         //Realiza os calculos para atribuir nos campos de subtotal, frete e total
         $qty = $this->countQty($bookArray);
@@ -87,7 +78,8 @@ class CartController extends Controller {
         //Retorna a view do cart
         return view("cart_view/cart_view", compact("categories", "bookArray", "qty", "subTotal", "frete", "totalCart", "histAcess"));
     }
-
+    
+    
     //Metódo que obterá o valor do sub total, multiplicando o valor do livro por sua quantidade
     public function total($bookArray) {
         $cont = 0;

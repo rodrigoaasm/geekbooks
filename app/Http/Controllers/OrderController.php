@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+date_default_timezone_set('America/Sao_Paulo');
 use Illuminate\Http\Request;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\CategoryController;
